@@ -119,5 +119,5 @@ For more detail, please visit the argo's `kind: Application` reference:
 
 ```bash
 OVERLAY=ap-southeast-1
-kubectl apply -f application/$OVERLAY
+kubectl apply -f applications/$OVERLAY
 ```
