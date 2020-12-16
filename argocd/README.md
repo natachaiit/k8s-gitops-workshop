@@ -1,5 +1,13 @@
 # Argo CD
 
+## 0. Prerequisite
+
+Change directory first.
+
+```bash
+cd argocd
+```
+
 ## 1. Setup Repository Credentials
 
 ### 1.1. Add ssh key to repository
@@ -53,8 +61,11 @@ stringData:
 ## 2. Install ArgoCD
 
 ```bash
-kubectl apply -f namespace.yaml
+kubectl apply -f controller/namespace.yaml
+
 kubectl apply -k controller
+# if the above fails, use this instead:
+kustomize build controller | kubectl apply -f-
 ```
 
 ## 3. Configure ArgoCD Server
@@ -76,6 +87,9 @@ Follows the [Login Using The CLI](https://argoproj.github.io/argo-cd/getting_sta
 instruction.
 
 ### 3.3. Additional Configs
+
+In `argocd-cm.yaml` change `data.repositories.url` from 'SCGWEDOtech/k8s-gitops-workshop'
+to '<YOUR_GITHUB_USERNAME>/k8s-gitops-workshop'.
 
 All additonal configurations are gathered by kustomize (`kustomization.yaml`),
 including the repository credential secret.
@@ -105,5 +119,5 @@ For more detail, please visit the argo's `kind: Application` reference:
 
 ```bash
 OVERLAY=ap-southeast-1
-kubectl apply -f application/$OVERLAY
+kubectl apply -f applications/$OVERLAY
 ```
